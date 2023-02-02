@@ -1,0 +1,12 @@
+.text {        
+    font-weight: 400;
+    color: #FFFFFF;
+    opacity: 0.4;
+    &_fz16 {
+        font-size: 16px;
+    }
+    &_white {
+        font-weight: 600;
+        opacity: unset;
+    }
+}

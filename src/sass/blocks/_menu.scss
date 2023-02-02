@@ -1,0 +1,32 @@
+header {
+    position: relative;
+    z-index: 10;
+}
+
+.menu {
+    position: absolute;
+    width: 745px;
+    height: 24px;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    &__wrapper {
+        margin-bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+    }
+    &__link {
+        font-weight: 400;
+        &:hover {
+            color: #919090;
+            text-decoration: none;
+        }
+    }
+}
+
+.logo {
+    position: absolute;
+    top: 40px;
+    left: 80px;
+}
