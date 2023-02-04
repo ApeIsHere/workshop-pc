@@ -3,19 +3,20 @@ header {
     z-index: 10;
 }
 
-.menu {
+nav {
     position: absolute;
-    width: 745px;
     height: 24px;
     top: 48px;
     left: 50%;
     transform: translateX(-50%);
-    &__wrapper {
-        margin-bottom: 0;
-        display: flex;
-        justify-content: space-between;
-        list-style: none;
-    }
+}
+
+.menu {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 0;
+    list-style: none;
+    padding: 0 280px;
     &__link {
         font-weight: 400;
         &:hover {
@@ -29,4 +30,11 @@ header {
     position: absolute;
     top: 40px;
     left: 80px;
+    &:hover {
+        filter: brightness(1.15);
+    }
+}
+
+.hamburger {
+    display: none;
 }

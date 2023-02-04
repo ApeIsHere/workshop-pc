@@ -1,6 +1,7 @@
 .main {
     position: relative;
-    height: 960px;
+    height: 100vh;
+    max-height: 960px;
     padding-top: 270px;
     background: url('../img/main/main-screen__bgc.jpg') center center/cover no-repeat;
     .container {
@@ -28,13 +29,14 @@
         }
     }
     &-bottom {
+        display: flex;
+        align-items: center;
         height: 130px;
         width: 100%;
         background: #121212;
         position: absolute;
         bottom: 0;
         &__wrapper {
-            height: 130px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -51,7 +53,7 @@
             height: 67px;
             display: grid;
             align-items: center;
-            grid-template: repeat(3, 1fr) / minmax(50px, max-content) minmax(71px, max-content) minmax(82px, auto);
+            grid-template: repeat(3, 1fr) / minmax(50px, max-content) minmax(41px, max-content) minmax(82px, auto);
             column-gap: 30px;
             grid-template-areas: 
             "a b ."
@@ -83,7 +85,7 @@
                 position: absolute;
                 width: 40%;
                 height: 6px;
-                background: var(--main-gradient);
+                background: var(--main-color);
             }
         }
     }
