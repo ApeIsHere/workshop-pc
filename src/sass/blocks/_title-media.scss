@@ -23,13 +23,20 @@
         &_fz64 {
             font-size: 40px;
         }
+        &_fz36 {
+            font-size: 30px;
+        }
     }
 }
 
 @media (max-width: 576px) {
     .title {
+        font-size: 32px;
         &_fz64 {
             font-size: 32px;
+        }
+        &_fz36 {
+            font-size: 24px;
         }
     }
 }

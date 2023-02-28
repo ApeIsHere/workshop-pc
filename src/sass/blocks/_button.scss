@@ -1,7 +1,7 @@
 .button {
     width: 169px;
     height: 44px;
-    background: var(--main-color);
+    background: var(--main-color2);
     border-radius: 50px;
     font-weight: 500;
     font-size: 16px;
@@ -15,6 +15,6 @@
         top: 38px;
         right: 80px;
         width: 183px;
-        background: linear-gradient(94.26deg, #C89AFC 9.51%, #7C6AFA 90.23%);
+        background: var(--main-color1);
     }
 }
