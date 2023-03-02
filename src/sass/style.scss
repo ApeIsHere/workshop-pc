@@ -16,7 +16,7 @@ body {
 
 
 .container {
-    width: 1300px;
+    width: 1315px;
     margin: 0 auto;
 }
 
@@ -35,4 +35,14 @@ body {
 @import 'blocks/about-media';
 @import 'blocks/start';
 @import 'blocks/start-media';
+@import 'blocks/advantages';
+@import 'blocks/advantages-media';
+@import 'blocks/partners';
+@import 'blocks/partners-media';
+@import 'blocks/program';
+@import 'blocks/program-media';
+@import 'blocks/tutors';
+@import 'blocks/tutors-media';
+@import 'blocks/footer';
+@import 'blocks/footer-media';
 

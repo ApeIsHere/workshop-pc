@@ -1,9 +1,10 @@
 .text {        
     font-weight: 400;
     color: #FFFFFF;
-    opacity: 0.4;
-    &_fz16 {
-        font-size: 16px;
+    opacity: 0.5;
+    font-size: 16px;
+    &_fz18 {
+        font-size: 18px;
     }
     &_fz14 {
         font-size: 14px;
@@ -11,5 +12,8 @@
     &_white {
         font-weight: 400;
         opacity: unset;
+    }
+    &_op08 {
+        opacity: 0.8;
     }
 }

@@ -1,0 +1,21 @@
+.partners {
+    margin-top: 200px;
+    &__top {
+        display: flex;
+        align-items: center;
+    }
+    &__wrapper {
+        margin-top: 60px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+    &__item {
+        padding: 9% 20%;
+        border-bottom: 1px solid rgba($color: white, $alpha: 0.3);
+        border-right: 1px solid rgba($color: white, $alpha: 0.3);
+        & > img {
+            width: 100%;
+        }
+    }
+}
