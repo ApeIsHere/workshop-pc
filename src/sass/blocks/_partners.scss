@@ -16,6 +16,10 @@
         border-right: 1px solid rgba($color: white, $alpha: 0.3);
         & > img {
             width: 100%;
+            &:hover {
+                scale: 1.2;
+                transition: all .6s;
+            }
         }
     }
 }

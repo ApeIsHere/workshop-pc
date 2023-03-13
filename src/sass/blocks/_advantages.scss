@@ -18,6 +18,11 @@
         }
         & > img {
             width: fit-content;
+            &:hover {
+                filter: brightness(1.25);
+                scale: 1.2;
+                transition: all .6s;
+            }
         }
     }
 }

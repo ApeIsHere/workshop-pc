@@ -12,11 +12,15 @@
             display: flex;
         }
         &-mail {
+            padding: 0 35px 0 20px;
             width: 353px;
             height: 44px;
-            opacity: 0.25;
+            background-color: rgba($color: #fff, $alpha: 0.25);
             border-radius: 50px 0px 0px 50px;
             border: none;
+            &::placeholder {
+                color: white;
+            }
         }
         .button {
             position: absolute;
