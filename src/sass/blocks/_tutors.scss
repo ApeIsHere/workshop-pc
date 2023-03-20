@@ -25,9 +25,9 @@
         button {
             margin-top: 30px;
         }
-        &:hover {
+        &:hover img {
             scale: 1.1;
-            transition: .6s ease;
+            transition: all .6s;
         }
     }
 }
