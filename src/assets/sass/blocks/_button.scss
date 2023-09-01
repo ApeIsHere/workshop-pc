@@ -1,0 +1,26 @@
+.button {
+    width: 169px;
+    height: 44px;
+    background: var(--main-color2);
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #ffffff;
+    border: none;
+    &:hover {
+        filter: brightness(1.15);
+    }
+    &-login {
+        position: absolute;
+        top: 38px;
+        right: 80px;
+        width: 183px;
+        background: var(--main-color1);
+    }
+    &-bio {
+        width: 143px;
+        border: 1px solid #FFFFFF;
+        background: none;
+        font-weight: 400;
+    }
+}

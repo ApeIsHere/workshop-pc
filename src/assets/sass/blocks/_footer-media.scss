@@ -1,0 +1,44 @@
+@media (max-width: 1440px) {
+    
+}
+
+@media (max-width: 1200px) {
+  
+}
+
+@media (max-width: 992px) {
+   .footer {
+        margin-top: 100px;
+   }
+}
+
+@media (max-width: 768px) {
+   
+}
+
+@media (max-width: 576px) {
+   .footer {
+        margin-top: 80px;
+        &__form {
+            width: 90%;
+            margin: 60px auto;
+            justify-content: center;
+            form {
+                flex-direction: column;
+                align-items: center;
+            }
+            &-mail {
+                width: 90%;
+                border-radius: 50px;
+            }
+            .button {
+                margin-top: 20px;
+                position: relative;
+                left: unset;
+            }
+        }
+        &__socials {
+            width: 250px;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+@media (max-width: 1440px) {
+    
+}
+
+@media (max-width: 1200px) {
+  
+}
+
+@media (max-width: 992px) {
+    .tutors {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tutors {
+        &__top {
+            justify-content: center;
+        }
+        &__wrapper {
+            margin-top: 0;
+            flex-direction: column;
+        }
+        &__item {
+            position: relative;
+            img {
+                margin-top: 60px;
+            }
+            &:nth-child(-n+2) {
+                padding-bottom: 30px;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 40%;
+                    height: 2px;
+                    // opacity: 0.5;
+                    background: var(--main-color1);
+                    bottom: -30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+   .tutors {
+    margin-top: 80px;
+   }
+}

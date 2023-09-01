@@ -1,0 +1,28 @@
+.advantages {
+    margin-top: 200px;
+    text-align: center;
+    &__wrapper {
+        margin-top: 120px;
+        display: flex;
+        justify-content: center;
+        gap: 82px;
+    }
+    &__item {
+        min-height: 362px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        & > p {
+            margin-bottom: 0;
+        }
+        & > img {
+            width: fit-content;
+            &:hover {
+                filter: brightness(1.25);
+                scale: 1.2;
+                transition: all .6s;
+            }
+        }
+    }
+}
