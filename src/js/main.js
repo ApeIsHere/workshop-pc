@@ -1,19 +1,25 @@
-const hamburger = document.querySelector('.hamburger'),
-      menu = document.querySelector('.menu'),
-      close = document.querySelector('.menu__close');
+import timer from "./modules/timer";
+import hamburger from "./modules/hamburger";
 
-hamburger.addEventListener('click', () => {
-    menu.classList.add('active');
+window.addEventListener('DOMContentLoaded', () => {
+    'use strict';
+
+    // const hamburger = document.querySelector('.hamburger'),
+    //   menu = document.querySelector('.menu'),
+    //   close = document.querySelector('.menu__close');
+
+    // hamburger.addEventListener('click', () => {
+    //     menu.classList.add('active');
+    // });
+
+
+
+    //----------------------------------- Timer
+    // Use the format "2023-09-04T15:30"
+
+    timer('.main__countdown', '2023-11-02T00:00:00');
+
+
 });
 
-close.addEventListener('click', () => {
-    menu.classList.remove('active');
-});
 
-
-const counters = document.querySelectorAll('.skills__progress__item-percent'),
-      lines = document.querySelectorAll('.skills__progress__item__bar-fill');
-
-counters.forEach((item, i) => {
-    lines[i].style.width = item.innerHTML;
-})
