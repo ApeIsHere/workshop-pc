@@ -1,18 +1,9 @@
 import timer from "./modules/timer";
 import hamburger from "./modules/hamburger";
+import tutors from "./modules/tutors"
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
-
-    // const hamburger = document.querySelector('.hamburger'),
-    //   menu = document.querySelector('.menu'),
-    //   close = document.querySelector('.menu__close');
-
-    // hamburger.addEventListener('click', () => {
-    //     menu.classList.add('active');
-    // });
-
-
 
     //----------------------------------- Timer
     // Use the format "2023-09-04T15:30"

@@ -1,4 +1,5 @@
 @import 'libs/bootstrap-reboot.min';
+@import "../../../node_modules/animate.css/animate.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,100;1,300;1,700;1,900&display=swap');
 
 @import 'base/variables';
@@ -10,10 +11,13 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: url('../img/bgc.jpg') center center/cover no-repeat;
 }
-
 
 .container {
     width: 1315px;

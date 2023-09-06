@@ -97,16 +97,12 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
 /* harmony import */ var _modules_hamburger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/hamburger */ "./src/js/modules/hamburger.js");
+/* harmony import */ var _modules_tutors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tutors */ "./src/js/modules/tutors.js");
+
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  'use strict'; // const hamburger = document.querySelector('.hamburger'),
-  //   menu = document.querySelector('.menu'),
-  //   close = document.querySelector('.menu__close');
-  // hamburger.addEventListener('click', () => {
-  //     menu.classList.add('active');
-  // });
-  //----------------------------------- Timer
+  'use strict'; //----------------------------------- Timer
   // Use the format "2023-09-04T15:30"
 
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_0__["default"])('.main__countdown', '2023-11-02T00:00:00');
@@ -197,6 +193,48 @@ const timer = function timer(selector, deadline) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (timer);
+
+/***/ }),
+
+/***/ "./src/js/modules/tutors.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/tutors.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const tutors = function tutors() {
+  const teacherCards = document.querySelectorAll('.tutors__item'),
+        buttons = document.querySelectorAll('.button-bio'),
+        bios = document.querySelectorAll('.tutors__bio');
+  buttons.forEach((btn, i) => {
+    function showBio() {
+      teacherCards.forEach((card, j) => {
+        if (j != i) {
+          card.classList.add('animate__animated', 'animate__animated', "animate__fadeOut");
+          card.style.zIndex = 1;
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            // card.classList
+            // card.style.zIndex = 10;
+            card.style.transform = 'translate3d(50%, 0, 0)';
+          }, 2000);
+        }
+      });
+      btn.removeEventListener('click', showBio);
+    }
+
+    btn.addEventListener('click', showBio);
+  });
+};
+
+tutors();
+/* harmony default export */ __webpack_exports__["default"] = (tutors);
 
 /***/ })
 

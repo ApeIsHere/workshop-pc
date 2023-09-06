@@ -30,4 +30,11 @@
             transition: all .6s;
         }
     }
+    &__bio {
+        // display: none;
+        margin-top: 50px;
+        border: 1px solid white;
+        border-radius: 20px;
+        padding: 20px;
+    }
 }
