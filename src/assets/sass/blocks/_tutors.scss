@@ -37,4 +37,31 @@
         border-radius: 20px;
         padding: 20px;
     }
+    &__small {
+        opacity: 0.4 !important; 
+        transform-origin: 12cm;
+    }
+      
+      @keyframes flowToCenter {
+        100% {
+            transform: translateX(var(--center-position));
+        }
+      }
+
+      @keyframes flowToSide {
+        100% {
+            transform: translateX(var(--initial-position));
+        }
+      }
+
+      @keyframes getSmaller {
+        100% {
+            transform: scale(0.7);
+        }
+      }
 }
+
+:root {
+        --initial-position: 0px;
+        --center-position: 0px;
+      }
