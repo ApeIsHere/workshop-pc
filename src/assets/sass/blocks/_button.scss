@@ -22,5 +22,21 @@
         border: 1px solid #FFFFFF;
         background: none;
         font-weight: 400;
+        overflow: hidden;
+    }
+    &-slide {
+        transition: all .6s ease-in-out;
+        position: relative;
+        top: 8px;
+		opacity: 1;			
+	}
+    &-hide {
+        transition: all 1s ease-in-out;
+        opacity: 0;
+        cursor: default !important;
+    }
+    .back {
+        transform: translateY(30px);
+		opacity: 0;
     }
 }

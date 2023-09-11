@@ -31,7 +31,7 @@
         }
     }
     &__bio {
-        // display: none;
+        display: none;
         margin-top: 50px;
         border: 1px solid white;
         border-radius: 20px;
@@ -56,7 +56,15 @@
 
       @keyframes getSmaller {
         100% {
+            opacity: 0.6;
             transform: scale(0.7);
+        }
+      }
+
+      @keyframes getBigger {
+        100% {
+            opacity: 1;
+            transform: scale(1);
         }
       }
 }
