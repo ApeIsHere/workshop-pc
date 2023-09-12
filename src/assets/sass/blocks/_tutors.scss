@@ -14,7 +14,7 @@
         justify-content: space-around;
         gap: 24px;
     }
-    &__item {
+    &__card {
         text-align: center;
         .subtitle {
             margin-top: 40px;
@@ -43,14 +43,20 @@
     }
       
       @keyframes flowToCenter {
+        0% {
+            transform: translateX(var(--side-position));
+        }
         100% {
-            transform: translateX(var(--center-position));
+            transform: translateX(var(--to-center));
         }
       }
 
       @keyframes flowToSide {
+        0% {
+            transform: translateX(var(--center-position));
+        }
         100% {
-            transform: translateX(var(--initial-position));
+            transform: translateX(var(--to-side));
         }
       }
 
@@ -62,6 +68,10 @@
       }
 
       @keyframes getBigger {
+        0% {
+            opacity: 0.6;
+            transform: scale(0.7);
+        }
         100% {
             opacity: 1;
             transform: scale(1);
@@ -70,6 +80,8 @@
 }
 
 :root {
-        --initial-position: 0px;
         --center-position: 0px;
+        --side-position: 0px;
+        --to-center: 0px;
+        --to-side: 0px;
       }

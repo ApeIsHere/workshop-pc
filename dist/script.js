@@ -103,7 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'; //----------------------------------- Timer
-  // Use the format "2023-09-04T15:30"
+  // Use the format "2023-09-04T15:30:00"
 
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_0__["default"])('.main__countdown', '2023-11-02T00:00:00');
 });
@@ -206,24 +206,49 @@ const timer = function timer(selector, deadline) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 const tutors = function tutors() {
-  const teacherItems = document.querySelectorAll('.tutors__item'),
-        teacherCards = document.querySelectorAll('.tutors__card'),
+  const teacherCards = document.querySelectorAll('.tutors__card'),
+        teacherInners = document.querySelectorAll('.tutors__inner'),
         buttons = document.querySelectorAll('.button-bio'),
         bios = document.querySelectorAll('.tutors__bio');
-  let position = {},
-      removeCallBacks = [],
+  let removeCallBacks = [],
+      clickedBtn = null,
       clicked = false;
 
   const clearCallBacks = () => removeCallBacks.forEach(c => c());
 
-  const changeCssVar = (center = 0, initial = 0) => {
-    document.documentElement.style.setProperty('--center-position', center);
-    document.documentElement.style.setProperty('--initial-position', initial);
-  };
-
   buttons.forEach((btn, i) => {
-    const showHideBio = () => {
-      //Slide the card title to 'close'
+    const init = () => {
+      let positionX = [];
+
+      const getCurrentPosition = () => {
+        teacherCards.forEach((card, j) => {
+          positionX[j] = Math.floor(card.getBoundingClientRect().x);
+        });
+        console.log(positionX);
+      };
+
+      getCurrentPosition();
+      const positionClicked = positionX[i],
+            positionCenter = positionX[1];
+
+      const changeCssVar = (toCenter = 0, toSide = 0, center, side) => {
+        document.documentElement.style.setProperty('--to-center', toCenter);
+        document.documentElement.style.setProperty('--to-side', toSide);
+        document.documentElement.style.setProperty('--center-position', center);
+        document.documentElement.style.setProperty('--side-position', side);
+        console.log(document.documentElement.style.getPropertyValue('--to-center'));
+        console.log(document.documentElement.style.getPropertyValue('--to-side'));
+        console.log(document.documentElement.style.getPropertyValue('--center-position'));
+        console.log(document.documentElement.style.getPropertyValue('--side-position'));
+      };
+
+      const calculateDistance = () => {
+        const distance = positionCenter - positionClicked;
+        changeCssVar(`${distance}px`, `${-distance}px`, positionCenter, positionClicked);
+        console.log(distance);
+      }; //Slide the card title to 'close'
+
+
       const animateButtons = (frontTranslate, backTranslate, frontOpacity, backOpacity) => {
         const btnFront = btn.querySelector('.front'),
               btnBack = btn.querySelector('.back');
@@ -237,69 +262,100 @@ const tutors = function tutors() {
                     `;
       };
 
+      const showHideBio = () => {
+        bios.forEach((bio, index) => {
+          bio.style.display = 'none';
+          bio.classList.remove('animate__animated', 'animate__fadeInUp');
+
+          if (!clicked && index === i) {
+            bio.style.display = 'block';
+            bio.classList.add('animate__animated', 'animate__fadeInUp');
+          }
+        });
+      };
+
+      const showHideButtons = () => {
+        buttons.forEach(button => {
+          if (!clicked) {
+            if (button !== btn) {
+              button.classList.remove('animate__animated', 'animate__fadeIn');
+              button.classList.add('button-hide');
+            }
+          } else {
+            button.style.display = 'initial';
+            button.classList.remove('button-hide');
+          }
+        });
+      };
+
+      const animateForward = () => {
+        teacherCards.forEach((card, j) => {
+          if (j !== i) {
+            teacherInners[j].style.animation = 'getSmaller 1s ease-in-out forwards';
+          } else {
+            card.setAttribute('data-clicked', 'true');
+
+            if (!card.getAttribute('data-center')) {
+              calculateDistance(); // we need to apply 2 diffirent animations to the same object
+              // that's why we use a wrapper teacherItem
+              // we apply 1 animation to the card and the second to the wrapper.
+
+              card.style.animation = 'flowToCenter 1s ease-in-out forwards';
+              card.style.position = 'relative';
+              card.style.zIndex = 11;
+              teacherCards[1].style.animation = 'flowToSide 1s ease-in-out forwards';
+            }
+          }
+        });
+      };
+
+      const animateBackwards = () => {
+        teacherInners.forEach(inner => {
+          if (!inner.closest('[data-clicked]')) {
+            inner.style.animation = 'getBigger 1s ease-in-out forwards';
+          }
+        });
+        teacherCards.forEach(card => {
+          if (card.getAttribute('data-clicked') && !card.getAttribute('data-center')) {
+            card.style.position = 'initial';
+            card.style.zIndex = 1;
+            card.style.animation = 'none';
+            teacherCards[1].style.animation = 'none';
+          }
+
+          card.removeAttribute('data-clicked');
+        });
+      }; // initiating sequence
+
+
+      showHideBio();
+      showHideButtons();
+      clearCallBacks();
+
       if (!clicked) {
         animateButtons(-30, -24, 0, 1);
+        animateForward();
+        clicked = true;
+        console.log(clicked);
       } else {
         animateButtons(0, 0, 1, 0);
-      } //Show corresponding bio
+        animateBackwards();
+        clicked = false;
+        console.log(clicked);
+      } //initiating evetlistener to the clicked button only
 
 
-      bios.forEach((bio, index) => {
-        bio.style.display = 'none';
-        bio.classList.remove('animate__animated', 'animate__fadeInUp');
-
-        if (!clicked && index === i) {
-          bio.style.display = 'block';
-          bio.classList.add('animate__animated', 'animate__fadeInUp');
-        }
-      }); // Hide-Show other btns
-
-      buttons.forEach(button => {
-        if (!clicked) {
-          if (button !== btn) {
-            button.classList.remove('animate__animated', 'animate__fadeIn');
-            button.classList.add('button-hide');
-          }
-        } else {
-          button.classList.remove('button-hide');
-          button.classList.add('animate__animated', 'animate__fadeIn');
-        }
-      }); //Getting all cards x-position
-
-      teacherCards.forEach((card, j) => {
-        position[`x${j}`] = Math.floor(card.getBoundingClientRect().x);
-      }); // Animating the correct card to the center using CSS variables to control @keyframe animation
-
-      teacherCards.forEach((card, j) => {
-        const clickedCardPos = position[`x${i}`],
-              centerCardPos = position.x1;
-
-        if (j !== i) {
-          card.style.animation = 'getSmaller 1s ease-in-out forwards';
-        } else {
-          if (clickedCardPos !== centerCardPos) {
-            const distance = centerCardPos - clickedCardPos;
-            changeCssVar(`${distance}px`, `${-distance}px`); // we need to apply 2 diffirent animations to the same object
-            // that's why we use a wrapper teacherItem
-            // we apply 1 animation to the card and the second to the wrapper.
-
-            card.style.animation = 'flowToCenter 1s ease-in-out forwards';
-            card.style.position = 'relative';
-            card.style.zIndex = 11;
-            teacherItems[1].style.animation = 'flowToSide 1.2s ease-in-out forwards';
-          }
-        }
-      });
-      clicked = true; // clearCallBacks();
+      clickedBtn = btn;
+      clickedBtn.addEventListener('click', init);
     };
 
-    btn.addEventListener('click', showHideBio);
-    removeCallBacks.push(() => btn.removeEventListener('click', showHideBio));
+    btn.addEventListener('click', init);
+    removeCallBacks.push(() => btn.removeEventListener('click', init));
   });
-  const clickedBtn = document.querySelector('.clicked-111');
-  clickedBtn.addEventListener('click', () => {
+  const checkClicked = document.querySelector('.clicked-111');
+  checkClicked.addEventListener('click', () => {
     clicked = true;
-    clickedBtn.style.color = 'black';
+    checkClicked.style.color = 'black';
   });
 };
 
