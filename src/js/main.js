@@ -1,6 +1,7 @@
 import timer from "./modules/timer";
 import hamburger from "./modules/hamburger";
-import tutors from "./modules/tutors"
+import tutors from "./modules/tutors";
+import scroll from "./modules/scroll";
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';

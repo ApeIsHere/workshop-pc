@@ -98,6 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
 /* harmony import */ var _modules_hamburger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/hamburger */ "./src/js/modules/hamburger.js");
 /* harmony import */ var _modules_tutors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tutors */ "./src/js/modules/tutors.js");
+/* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/scroll */ "./src/js/modules/scroll.js");
+
 
 
 
@@ -129,6 +131,31 @@ const hamburger = function hamburger() {
 
 hamburger();
 /* harmony default export */ __webpack_exports__["default"] = (hamburger);
+
+/***/ }),
+
+/***/ "./src/js/modules/scroll.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/scroll.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const scroll = function scroll() {
+  const toTopbtn = document.querySelector('.toTop');
+  window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop > 1000) {
+      toTopbtn.classList.add('show');
+    } else {
+      toTopbtn.classList.remove('show');
+    }
+  });
+};
+
+scroll();
+/* harmony default export */ __webpack_exports__["default"] = (scroll);
 
 /***/ }),
 
