@@ -42,23 +42,41 @@
         transform-origin: 12cm;
     }
       
-      @keyframes flowToCenter {
+      @keyframes flowToCenterForward {
         0% {
-            transform: translateX(var(--side-position));
+            transform: translateX(var(--from-side));
         }
         100% {
             transform: translateX(var(--to-center));
         }
       }
 
-      @keyframes flowToSide {
+      @keyframes flowToSideForward {
         0% {
-            transform: translateX(var(--center-position));
+            transform: translateX(var(--from-center)); 
         }
         100% {
-            transform: translateX(var(--to-side));
+            transform: translateX(var(--to-side)); 
         }
       }
+
+      @keyframes flowToCenterBack {
+        0% {
+            transform: translateX(var(--to-side)); 
+        }
+        100% {
+            transform: translateX(var(--from-center)); 
+        }
+    }
+    
+    @keyframes flowToSideBack {
+        0% {
+            transform: translateX(var(--to-center)); 
+        }
+        100% {
+            transform: translateX(var(--from-side)); 
+        }
+    }
 
       @keyframes getSmaller {
         100% {
@@ -80,8 +98,8 @@
 }
 
 :root {
-        --center-position: 0px;
-        --side-position: 0px;
+        --from-center: 0px;
+        --from-side: 0px;
         --to-center: 0px;
         --to-side: 0px;
       }
