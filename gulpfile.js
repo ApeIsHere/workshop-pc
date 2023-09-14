@@ -10,8 +10,8 @@ const rename        = require("gulp-rename");
 const imagemin      = require('gulp-imagemin');
 const htmlmin       = require('gulp-htmlmin');
 
-// const dist = "./dist/";
-const dist = "C:/OSPanel/domains/workshopPC";
+const dist = "./dist/";
+// const dist = "C:/OSPanel/domains/workshopPC";
 
 gulp.task("copy-html", () => {
     return gulp.src("./src/index.html")
