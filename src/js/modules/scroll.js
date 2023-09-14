@@ -11,6 +11,4 @@ const scroll = function () {
     });
 };
 
-scroll();
-
 export default scroll;

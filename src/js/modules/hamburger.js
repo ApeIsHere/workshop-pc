@@ -8,6 +8,4 @@ const hamburger = function() {
     });
 };
 
-hamburger();
-
 export default hamburger;

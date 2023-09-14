@@ -137,6 +137,4 @@ const tutors = function () {
     });
 };
 
-tutors();
-
 export default tutors;
