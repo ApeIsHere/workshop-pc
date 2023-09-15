@@ -1366,6 +1366,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tutors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tutors */ "./src/js/modules/tutors.js");
 /* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/scroll */ "./src/js/modules/scroll.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
+
 
 
 
@@ -1380,6 +1382,7 @@ window.addEventListener('DOMContentLoaded', () => {
   Object(_modules_scroll__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_tutors__WEBPACK_IMPORTED_MODULE_2__["default"])();
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_5__["default"])();
 });
 
 /***/ }),
@@ -1496,6 +1499,82 @@ const hamburger = function hamburger() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (hamburger);
+
+/***/ }),
+
+/***/ "./src/js/modules/modals.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/modals.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const modals = () => {
+  const bindModal = (triggerSelector, modalSelector, closeSelector) => {
+    const triggers = document.querySelectorAll(triggerSelector),
+          modal = document.querySelector(modalSelector),
+          close = modal.querySelector(closeSelector),
+          windows = document.querySelectorAll('[data-modal]'),
+          scroll = calcScroll();
+
+    function openModal() {
+      windows.forEach(window => {
+        window.style.display = 'none';
+        window.classList.add('animate__animated', 'animate__fadeIn');
+      });
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${scroll}px`;
+    }
+
+    function closeModal() {
+      windows.forEach(window => {
+        window.style.display = "none";
+        window.classList.remove('animate__animated', 'animate__fadeIn');
+      });
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.marginRight = `0px`;
+    }
+
+    ;
+
+    function calcScroll() {
+      let div = document.createElement('div');
+      div.style.width = '50px';
+      div.style.height = '50px';
+      div.style.overflowY = 'scroll';
+      div.style.visibility = 'hidden';
+      document.body.appendChild(div);
+      let scrollWidth = div.offsetWidth - div.clientWidth;
+      div.remove();
+      return scrollWidth;
+    }
+
+    ;
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', e => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+    close.addEventListener('click', () => {
+      closeModal();
+    });
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  };
+
+  bindModal('.button-enroll', '.popup-enroll', '.popup-close');
+  bindModal('.button-login', '.popup-login', '.popup-close');
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (modals);
 
 /***/ }),
 
@@ -1654,6 +1733,9 @@ const tutors = function tutors() {
           } else if (clicked && index === i) {
             bio.style.display = 'block';
             bio.classList.add('animate__fadeOutDown');
+            setTimeout(() => {
+              bio.style.display = 'none';
+            }, 800);
           }
         });
       };

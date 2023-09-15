@@ -1,0 +1,57 @@
+.popup {
+    margin: auto;
+    z-index: 20;
+    position: fixed;
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: .8);
+
+    &-wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        padding: 40px;
+        width: 35%;
+        height: 35%;
+        background-image: var(--modal-color1);
+        border-radius: 20px;
+    }
+
+    &-close {
+        position: absolute;
+        top: -5rem;
+        right: -1.5rem;
+        font-size: 5rem;
+        width: 3rem;
+        height: 3rem;
+        line-height: 5rem;
+        text-align: center;
+        background: transparent;
+        color: #fff;
+        border: none;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    form {
+        margin: auto;
+        margin-top: 30px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .button {
+        margin-top: 20px;
+    }
+}

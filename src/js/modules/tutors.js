@@ -60,6 +60,9 @@ const tutors = function () {
                     } else if (clicked && index === i) {
                         bio.style.display = 'block';
                         bio.classList.add('animate__fadeOutDown');
+                        setTimeout(() => {
+                            bio.style.display = 'none';
+                        }, 800);
                     }
                 });
             };

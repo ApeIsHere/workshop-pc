@@ -3,6 +3,7 @@ import hamburger from "./modules/hamburger";
 import tutors from "./modules/tutors";
 import scroll from "./modules/scroll";
 import forms from "./modules/forms";
+import modals from "./modules/modals";
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -16,6 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     scroll();
     tutors();
     forms();
+    modals();
 });
 
 
