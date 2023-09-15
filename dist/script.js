@@ -1407,6 +1407,8 @@ const forms = () => {
   const message = {
     loading: 'Loading...',
     success: 'Thank you',
+    contact: "We'll contact you soon",
+    login: "Log-in success",
     failure: 'Something went wrong...',
     spinner: 'assets/icons/footer/spinner.gif',
     ok: 'assets/icons/footer/ok.png',
@@ -1455,21 +1457,53 @@ const forms = () => {
     const button = form.querySelector('button'),
           mainInput = form.querySelector('[data-main-input]'),
           oldValue = button.innerHTML;
+    let isModal = false,
+        modalMessage;
+
+    if (form.closest('.popup')) {
+      const div = document.createElement('div');
+      div.classList.add('subtitle');
+      div.style.marginTop = '10px';
+      form.appendChild(div);
+      modalMessage = div;
+      isModal = true;
+    }
+
     form.addEventListener('submit', e => {
       e.preventDefault();
       const formData = new FormData(form);
       showBtnImg(button, message.spinner, 'loading...');
-      mainInput.value = message.loading;
+
+      if (!isModal) {
+        mainInput.value = message.loading;
+      } else {
+        modalMessage.textContent = message.loading;
+      }
+
       postData(server, formData).then(res => {
         showBtnImg(button, message.ok, 'ok');
-        mainInput.value = message.success;
+
+        if (!isModal) {
+          mainInput.value = message.success;
+        } else if (form.closest('.popup-enroll')) {
+          modalMessage.textContent = message.contact;
+        } else {
+          modalMessage.textContent = message.login;
+        }
+
         console.log(res);
       }).catch(() => {
         showBtnImg(button, message.fail, 'fail');
-        mainInput.value = message.failure;
+
+        if (!isModal) {
+          mainInput.value = message.failure;
+        } else {
+          modalMessage.textContent = message.failure;
+        }
       }).finally(() => {
         setTimeout(() => {
           clearInputs();
+          isModal = false;
           button.innerHTML = oldValue;
         }, 3800);
       });
