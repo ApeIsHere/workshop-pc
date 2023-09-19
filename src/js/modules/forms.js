@@ -62,11 +62,10 @@ const forms = () => {
 
 
         if (form.closest('.popup')) {
-            const div = document.createElement('div');
-            div.classList.add('subtitle');
-            div.style.marginTop = '10px';
-            form.appendChild(div);
-            modalMessage = div;
+            modalMessage = document.createElement('div');
+            modalMessage.classList.add('subtitle');
+            modalMessage.style.marginTop = '10px';
+            form.appendChild(modalMessage);
             isModal = true;
         }
 
@@ -89,8 +88,10 @@ const forms = () => {
                         mainInput.value = message.success;
                     } else if (form.closest('.popup-enroll')) {
                         modalMessage.textContent = message.contact;
+                        modalMessage.style.display = 'block';
                     } else {
                         modalMessage.textContent = message.login;
+                        modalMessage.style.display = 'block';
                     }
                     console.log(res);
                 })
@@ -100,13 +101,16 @@ const forms = () => {
                         mainInput.value = message.failure;
                     } else {
                         modalMessage.textContent = message.failure;
+                        modalMessage.style.display = 'block';
                     }
                 })
                 .finally(() => {
                     setTimeout(() => {
                         clearInputs();
-                        isModal = false;
                         button.innerHTML = oldValue;
+                        if (isModal){
+                            modalMessage.style.display = 'none';
+                        }
                     }, 3800);
                 });
         });

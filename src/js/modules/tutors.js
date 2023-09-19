@@ -7,7 +7,6 @@ const tutors = function () {
     let clicked = false;
 
     buttons.forEach((btn, i) => {
-
         const init = () => {
             let positionX = [];
 
@@ -83,10 +82,21 @@ const tutors = function () {
                 });
             };
 
+            const isMobile = () => {
+                return window.innerWidth <= 576;
+                
+            };
+
             const animateForward = () => {
                 teacherCards.forEach((card, j) => {
                     if (j !== i) {
                         teacherInners[j].style.animation = 'getSmaller 1s ease-in-out forwards';
+                        if (isMobile()) {
+                            setTimeout(() => {
+                                console.log('do the action here!');
+                                teacherCards[j].style.opacity = 0.1;
+                            }, 1000)
+                        }
                     } else {
                         card.setAttribute('data-clicked', 'true');
                         if (!card.getAttribute('data-center')) {
@@ -96,7 +106,6 @@ const tutors = function () {
                             // that's why we use a wrapper teacherItem
                             // we apply 1 animation to the card and the second to the wrapper.
                             card.style.animation = 'flowToCenterForward 1s ease-in-out forwards';
-                            // card.style.position = 'relative';
                             card.style.zIndex = 11;
                             teacherCards[1].style.animation = 'flowToSideForward 1s ease-in-out forwards';
                         }
@@ -108,6 +117,9 @@ const tutors = function () {
                 teacherInners.forEach(inner => {
                     if (!inner.closest('[data-clicked]')) {
                         inner.style.animation = 'getBigger 1s ease-in-out forwards';
+                        // if (isMobile()) {
+                        //     inner.style.opacity = 1;
+                        // }
                     }
                 });
 

@@ -4,6 +4,7 @@
             &:nth-child(4n+4) {
                 border-right: none;
             }
+
             &:nth-child(n+5) {
                 border-bottom: none;
             }
@@ -11,14 +12,12 @@
     }
 }
 
-@media (max-width: 1200px) {
-  
-}
+@media (max-width: 1200px) {}
 
 @media (max-width: 992px) {
-   .partners {
-    margin-top: 100px;
-   }
+    .partners {
+        margin-top: 100px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -26,15 +25,21 @@
         &__top {
             justify-content: center;
         }
+
         &__wrapper {
             grid-template-columns: repeat(2, 1fr);
         }
+
         &__item {
-            &:nth-child(2n) {
-                border-right: none;
+            border-right: none !important;
+            border-bottom: none !important;
+
+            &:nth-child(2n-1) {
+                border-right: 1px solid rgba($color: white, $alpha: 0.3) !important;
             }
-            &:nth-child(n+7) {
-                border-bottom: none;
+
+            &:nth-child(-n+6) {
+                border-bottom: 1px solid rgba($color: white, $alpha: 0.3) !important;
             }
         }
     }

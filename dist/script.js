@@ -1461,11 +1461,10 @@ const forms = () => {
         modalMessage;
 
     if (form.closest('.popup')) {
-      const div = document.createElement('div');
-      div.classList.add('subtitle');
-      div.style.marginTop = '10px';
-      form.appendChild(div);
-      modalMessage = div;
+      modalMessage = document.createElement('div');
+      modalMessage.classList.add('subtitle');
+      modalMessage.style.marginTop = '10px';
+      form.appendChild(modalMessage);
       isModal = true;
     }
 
@@ -1487,8 +1486,10 @@ const forms = () => {
           mainInput.value = message.success;
         } else if (form.closest('.popup-enroll')) {
           modalMessage.textContent = message.contact;
+          modalMessage.style.display = 'block';
         } else {
           modalMessage.textContent = message.login;
+          modalMessage.style.display = 'block';
         }
 
         console.log(res);
@@ -1499,12 +1500,16 @@ const forms = () => {
           mainInput.value = message.failure;
         } else {
           modalMessage.textContent = message.failure;
+          modalMessage.style.display = 'block';
         }
       }).finally(() => {
         setTimeout(() => {
           clearInputs();
-          isModal = false;
           button.innerHTML = oldValue;
+
+          if (isModal) {
+            modalMessage.style.display = 'none';
+          }
         }, 3800);
       });
     });
@@ -1526,10 +1531,27 @@ const forms = () => {
 __webpack_require__.r(__webpack_exports__);
 const hamburger = function hamburger() {
   const hamburger = document.querySelector('.hamburger'),
-        menu = document.querySelector('.menu');
-  hamburger.addEventListener('click', () => {
+        menu = document.querySelector('.menu'),
+        lines = hamburger.querySelectorAll('span');
+  let isOpen = false;
+
+  const toggleMenu = () => {
+    isOpen = !isOpen;
     menu.classList.toggle('menu__active');
-  });
+    animateHamburger(isOpen);
+  };
+
+  const animateHamburger = isOpen => {
+    const angle = isOpen ? 45 : 0,
+          top = isOpen ? '3.5px' : 'auto';
+    lines[0].style.transform = `rotate(${angle}deg)`;
+    lines[0].style.top = top;
+    lines[1].style.transform = `rotate(-${angle}deg)`;
+    lines[1].style.top = -top;
+    lines[2].style.opacity = isOpen ? '0' : '1';
+  };
+
+  hamburger.addEventListener('click', toggleMenu);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (hamburger);
@@ -1624,7 +1646,7 @@ __webpack_require__.r(__webpack_exports__);
 const scroll = function scroll() {
   const toTopbtn = document.querySelector('.toTop');
   window.addEventListener('scroll', () => {
-    if (document.documentElement.scrollTop > 1000) {
+    if (document.documentElement.scrollTop > 400) {
       toTopbtn.classList.add('show');
     } else {
       toTopbtn.classList.remove('show');
@@ -1790,10 +1812,21 @@ const tutors = function tutors() {
         });
       };
 
+      const isMobile = () => {
+        return window.innerWidth <= 576;
+      };
+
       const animateForward = () => {
         teacherCards.forEach((card, j) => {
           if (j !== i) {
             teacherInners[j].style.animation = 'getSmaller 1s ease-in-out forwards';
+
+            if (isMobile()) {
+              setTimeout(() => {
+                console.log('do the action here!');
+                teacherCards[j].style.opacity = 0.1;
+              }, 1000);
+            }
           } else {
             card.setAttribute('data-clicked', 'true');
 
@@ -1802,8 +1835,7 @@ const tutors = function tutors() {
               // that's why we use a wrapper teacherItem
               // we apply 1 animation to the card and the second to the wrapper.
 
-              card.style.animation = 'flowToCenterForward 1s ease-in-out forwards'; // card.style.position = 'relative';
-
+              card.style.animation = 'flowToCenterForward 1s ease-in-out forwards';
               card.style.zIndex = 11;
               teacherCards[1].style.animation = 'flowToSideForward 1s ease-in-out forwards';
             }
@@ -1814,7 +1846,9 @@ const tutors = function tutors() {
       const animateBackwards = () => {
         teacherInners.forEach(inner => {
           if (!inner.closest('[data-clicked]')) {
-            inner.style.animation = 'getBigger 1s ease-in-out forwards';
+            inner.style.animation = 'getBigger 1s ease-in-out forwards'; // if (isMobile()) {
+            //     inner.style.opacity = 1;
+            // }
           }
         });
         teacherCards.forEach(card => {
