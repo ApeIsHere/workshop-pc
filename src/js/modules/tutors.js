@@ -8,28 +8,37 @@ const tutors = function () {
 
     buttons.forEach((btn, i) => {
         const init = () => {
-            let positionX = [];
+            let cardRect = [];
 
             const getCurrentPosition = () => {
                 teacherCards.forEach((card, j) => {
-                    positionX[j] = Math.floor(card.getBoundingClientRect().x);
+                    cardRect[j] = card.getBoundingClientRect();
                 });
             };
             getCurrentPosition();
 
-            const positionClicked = positionX[i],
-                positionCenter = positionX[1];
+            const isMobile = () => {
+                return window.innerWidth <= 768;
+            };
 
-            const changeCssVar = (toCenter = 0, toSide = 0, fromCenter, fromSide) => {
-                document.documentElement.style.setProperty('--to-center', toCenter);
-                document.documentElement.style.setProperty('--to-side', toSide);
-                document.documentElement.style.setProperty('--from-center', fromCenter);
-                document.documentElement.style.setProperty('--from-side', fromSide);
+            const changeCssVar = (distance, distanceNeg, center, side) => {
+                document.documentElement.style.setProperty('--distance', distance);
+                document.documentElement.style.setProperty('--distanceNeg', distanceNeg);
+                document.documentElement.style.setProperty('--center', center);
+                document.documentElement.style.setProperty('--sside', side);
+
+                console.log("--distance:", distance);
+                console.log("--distanceNeg:", distanceNeg);
+                console.log("--center:", center);
+                console.log("--side:", side);
             }
 
             const calculateDistance = () => {
-                const distance = positionCenter - positionClicked;
-                changeCssVar(`${distance}px`, `${-distance}px`, positionCenter, positionClicked);
+                const positionClickedX = cardRect[i].x,
+                    positionCenter = cardRect[1].x,
+                    distance = positionCenter - positionClickedX;
+
+                changeCssVar(`${distance}px`, `${-distance}px`, positionCenter, positionClickedX);
             };
 
             //Slide the card title from 'bio' to 'close'
@@ -82,32 +91,28 @@ const tutors = function () {
                 });
             };
 
-            const isMobile = () => {
-                return window.innerWidth <= 576;
-                
-            };
-
             const animateForward = () => {
                 teacherCards.forEach((card, j) => {
                     if (j !== i) {
-                        teacherInners[j].style.animation = 'getSmaller 1s ease-in-out forwards';
                         if (isMobile()) {
-                            setTimeout(() => {
-                                console.log('do the action here!');
-                                teacherCards[j].style.opacity = 0.1;
-                            }, 1000)
+                            teacherInners[j].style.animation = 'getSmallerMobile 1s ease-in-out forwards';
+                        } else {
+                            teacherInners[j].style.animation = 'getSmaller 1s ease-in-out forwards';
                         }
                     } else {
-                        card.setAttribute('data-clicked', 'true');
-                        if (!card.getAttribute('data-center')) {
-                            calculateDistance();
-
-                            // we need to apply 2 diffirent animations to the same object
-                            // that's why we use a wrapper teacherItem
-                            // we apply 1 animation to the card and the second to the wrapper.
-                            card.style.animation = 'flowToCenterForward 1s ease-in-out forwards';
-                            card.style.zIndex = 11;
-                            teacherCards[1].style.animation = 'flowToSideForward 1s ease-in-out forwards';
+                        calculateDistance();
+                        if (isMobile()) {
+                            card.style.animation = 'cardUp 1s ease-in-out forwards'
+                        } else {
+                            card.setAttribute('data-clicked', 'true');
+                            if (!card.getAttribute('data-center')) {
+                                // we need to apply 2 diffirent animations to the same object
+                                // that's why we use a wrapper teacherItem
+                                // we apply 1 animation to the card and the second to the wrapper.
+                                card.style.animation = 'toCenterForward 1s ease-in-out forwards';
+                                card.style.zIndex = 11;
+                                teacherCards[1].style.animation = 'toSideForward 1s ease-in-out forwards';
+                            }
                         }
                     }
                 });
@@ -116,10 +121,11 @@ const tutors = function () {
             const animateBackwards = () => {
                 teacherInners.forEach(inner => {
                     if (!inner.closest('[data-clicked]')) {
-                        inner.style.animation = 'getBigger 1s ease-in-out forwards';
-                        // if (isMobile()) {
-                        //     inner.style.opacity = 1;
-                        // }
+                        if (isMobile()) {
+                            inner.style.animation = 'getBiggerMobile 1s ease-in-out forwards';
+                        } else {
+                            inner.style.animation = 'getBigger 1s ease-in-out forwards';
+                        }
                     }
                 });
 
@@ -127,8 +133,8 @@ const tutors = function () {
                     if (card.getAttribute('data-clicked') && !card.getAttribute('data-center')) {
                         card.style.position = 'initial';
                         card.style.zIndex = 1;
-                        card.style.animation = 'flowToSideBack 1s ease-in-out forwards';
-                        teacherCards[1].style.animation = 'flowToCenterBack 1s ease-in-out forwards';
+                        card.style.animation = 'toSideBack 1s ease-in-out forwards';
+                        teacherCards[1].style.animation = 'toCenterBack 1s ease-in-out forwards';
                     }
                     card.removeAttribute('data-clicked');
                 });
