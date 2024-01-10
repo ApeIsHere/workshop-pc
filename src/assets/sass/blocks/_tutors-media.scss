@@ -21,24 +21,13 @@
             margin-top: 0;
             flex-direction: column;
         }
-        &__item {
+        &__bio-copy {
+            display: block;
             position: relative;
-            img {
-                margin-top: 60px;
-            }
-            &:nth-child(-n+2) {
-                padding-bottom: 30px;
-                &::after {
-                    content: '';
-                    position: absolute;
-                    width: 40%;
-                    height: 2px;
-                    // opacity: 0.5;
-                    background: var(--main-color1);
-                    bottom: -30px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                }
+            right: -150%;
+            transition: .6s all;
+            &__active {
+                right: 0;
             }
         }
     }

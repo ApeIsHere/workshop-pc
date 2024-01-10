@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //----------------------------------- Timer
     // Use the format "2023-09-04T15:30:00"
 
-    timer('.main__countdown', '2023-11-02T00:00:00');
+    timer('.main__countdown', '2024-11-02T00:00:00');
 
     hamburger();
     scroll();

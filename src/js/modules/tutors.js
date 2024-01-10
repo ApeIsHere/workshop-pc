@@ -1,17 +1,18 @@
 const tutors = function () {
 
-    const teacherCards = document.querySelectorAll('.tutors__card'),
-        teacherInners = document.querySelectorAll('.tutors__inner'),
+    const tutorsCard = document.querySelectorAll('.tutors__card'),
+        tutorsInner = document.querySelectorAll('.tutors__inner'),
         buttons = document.querySelectorAll('.button-bio'),
         bios = document.querySelectorAll('.tutors__bio');
     let clicked = false;
 
     buttons.forEach((btn, i) => {
         const init = () => {
-            let cardRect = [];
+            let cardRect = [],
+                middleElement;
 
             const getCurrentPosition = () => {
-                teacherCards.forEach((card, j) => {
+                tutorsCard.forEach((card, j) => {
                     cardRect[j] = card.getBoundingClientRect();
                 });
             };
@@ -34,8 +35,9 @@ const tutors = function () {
             }
 
             const calculateDistance = () => {
+                middleElement = Math.floor(cardRect.length / 2);
                 const positionClickedX = cardRect[i].x,
-                    positionCenter = cardRect[1].x,
+                    positionCenter = cardRect[middleElement].x,
                     distance = positionCenter - positionClickedX;
 
                 changeCssVar(`${distance}px`, `${-distance}px`, positionCenter, positionClickedX);
@@ -57,22 +59,60 @@ const tutors = function () {
             };
 
             const showHideBio = () => {
-                bios.forEach(bio => bio.classList.add('animate__animated'));
+                // clone and append the copy of bio for mobile
+                if (isMobile()) {
+                    console.log('Si Senor');
+                    bios.forEach((bio, j) => {
+                        if (j === i) {
+                            const bioCopy = bio.cloneNode(true);
 
-                bios.forEach((bio, index) => {
-                    bio.style.display = 'none';
-                    bio.classList.remove('animate__fadeInUp', 'animate__fadeOutDown');
-                    if (!clicked && index === i) {
-                        bio.style.display = 'block';
-                        bio.classList.add('animate__fadeInUp');
-                    } else if (clicked && index === i) {
-                        bio.style.display = 'block';
-                        bio.classList.add('animate__fadeOutDown');
-                        setTimeout(() => {
-                            bio.style.display = 'none';
-                        }, 800);
-                    }
-                });
+                            tutorsCard.forEach((card, n) => {
+                                if (n === i) {
+                                    const appendCopy = card.querySelector('.tutors__bio-copy');
+
+                                    if(!appendCopy) {
+                                        card.appendChild(bioCopy);
+                                        bioCopy.classList.add('tutors__bio-copy');
+                                    } else {
+                                        appendCopy.classList.toggle('tutors__bio-copy__active');
+                                    }
+
+                                    // setTimeout(() => {
+                                    //     appendCopy.classList.toggle('tutors__bio-copy__active');
+                                    // }, 10);
+                                    // if (!card.querySelector('.tutors__bio-copy')) {
+                                    //     card.appendChild(bioCopy);
+                                    //     bioCopy.classList.add('tutors__bio-copy');
+                                    //     setTimeout(() => {
+                                    //         bioCopy.classList.add('tutors__bio-copy__active');
+                                    //     }, 10);
+                                    // } else {
+                                    //     const appendCopy = card.querySelector('.tutors__bio-copy');
+                                    //     console.log('Already there')
+                                    //     appendCopy.classList.remove('tutors__bio-copy__active');
+                                    // }
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    bios.forEach(bio => bio.classList.add('animate__animated'));
+
+                    bios.forEach((bio, j) => {
+                        bio.style.display = 'none';
+                        bio.classList.remove('animate__fadeInUp', 'animate__fadeOutDown');
+                        if (!clicked && j === i) {
+                            bio.style.display = 'block';
+                            bio.classList.add('animate__fadeInUp');
+                        } else if (clicked && j === i) {
+                            bio.style.display = 'block';
+                            bio.classList.add('animate__fadeOutDown');
+                            setTimeout(() => {
+                                bio.style.display = 'none';
+                            }, 800);
+                        }
+                    });
+                }
             };
 
             const showHideButtons = () => {
@@ -92,26 +132,26 @@ const tutors = function () {
             };
 
             const animateForward = () => {
-                teacherCards.forEach((card, j) => {
+                tutorsCard.forEach((card, j) => {
                     if (j !== i) {
                         if (isMobile()) {
-                            teacherInners[j].style.animation = 'getSmallerMobile 1s ease-in-out forwards';
+                            tutorsInner[j].style.animation = 'getSmallerMobile 1s ease-in-out forwards';
                         } else {
-                            teacherInners[j].style.animation = 'getSmaller 1s ease-in-out forwards';
+                            tutorsInner[j].style.animation = 'getSmaller 1s ease-in-out forwards';
                         }
                     } else {
-                        calculateDistance();
+                        card.setAttribute('data-clicked', 'true');
                         if (isMobile()) {
-                            card.style.animation = 'cardUp 1s ease-in-out forwards'
+                            card.style.animation = 'cardUp 1s ease-in-out forwards';
                         } else {
-                            card.setAttribute('data-clicked', 'true');
+                            calculateDistance();
                             if (!card.getAttribute('data-center')) {
                                 // we need to apply 2 diffirent animations to the same object
                                 // that's why we use a wrapper teacherItem
                                 // we apply 1 animation to the card and the second to the wrapper.
                                 card.style.animation = 'toCenterForward 1s ease-in-out forwards';
                                 card.style.zIndex = 11;
-                                teacherCards[1].style.animation = 'toSideForward 1s ease-in-out forwards';
+                                tutorsCard[middleElement].style.animation = 'toSideForward 1s ease-in-out forwards';
                             }
                         }
                     }
@@ -119,7 +159,7 @@ const tutors = function () {
             };
 
             const animateBackwards = () => {
-                teacherInners.forEach(inner => {
+                tutorsInner.forEach(inner => {
                     if (!inner.closest('[data-clicked]')) {
                         if (isMobile()) {
                             inner.style.animation = 'getBiggerMobile 1s ease-in-out forwards';
@@ -129,18 +169,19 @@ const tutors = function () {
                     }
                 });
 
-                teacherCards.forEach(card => {
+                tutorsCard.forEach((card, j) => {
                     if (card.getAttribute('data-clicked') && !card.getAttribute('data-center')) {
                         card.style.position = 'initial';
                         card.style.zIndex = 1;
                         card.style.animation = 'toSideBack 1s ease-in-out forwards';
-                        teacherCards[1].style.animation = 'toCenterBack 1s ease-in-out forwards';
+                        tutorsCard[1].style.animation = 'toCenterBack 1s ease-in-out forwards';
                     }
                     card.removeAttribute('data-clicked');
                 });
             };
 
             // initiating sequence
+
             showHideBio();
             showHideButtons();
 
