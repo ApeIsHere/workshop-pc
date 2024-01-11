@@ -22,12 +22,21 @@
             flex-direction: column;
         }
         &__bio-copy {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0px;
+            max-height: 0px;
+            overflow: hidden;
             display: block;
             position: relative;
-            right: -150%;
-            transition: .6s all;
+            transition: 0.6s all;
+            border: 0.1px;
             &__active {
+                margin-top: 2rem;
+                margin-bottom: 1rem;
                 right: 0;
+                border: 1px solid #fff;
+                max-height: 300px;
             }
         }
     }

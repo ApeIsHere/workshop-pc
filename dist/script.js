@@ -1787,44 +1787,32 @@ const tutors = function tutors() {
                     `;
       };
 
-      const showHideBio = () => {
+      const toggleBio = () => {
         // clone and append the copy of bio for mobile
         if (isMobile()) {
-          console.log('Si Senor');
           bios.forEach((bio, j) => {
             if (j === i) {
-              const bioCopy = bio.cloneNode(true);
               tutorsCard.forEach((card, n) => {
                 if (n === i) {
-                  const appendCopy = card.querySelector('.tutors__bio-copy');
+                  let appendCopy = card.querySelector('.tutors__bio-copy');
 
                   if (!appendCopy) {
-                    card.appendChild(bioCopy);
-                    bioCopy.classList.add('tutors__bio-copy');
-                  } else {
-                    appendCopy.classList.toggle('tutors__bio-copy__active');
-                  } // setTimeout(() => {
-                  //     appendCopy.classList.toggle('tutors__bio-copy__active');
-                  // }, 10);
-                  // if (!card.querySelector('.tutors__bio-copy')) {
-                  //     card.appendChild(bioCopy);
-                  //     bioCopy.classList.add('tutors__bio-copy');
-                  //     setTimeout(() => {
-                  //         bioCopy.classList.add('tutors__bio-copy__active');
-                  //     }, 10);
-                  // } else {
-                  //     const appendCopy = card.querySelector('.tutors__bio-copy');
-                  //     console.log('Already there')
-                  //     appendCopy.classList.remove('tutors__bio-copy__active');
-                  // }
+                    const bioClone = bio.cloneNode(true);
+                    card.appendChild(bioClone);
+                    bioClone.classList.add('tutors__bio-copy');
+                    appendCopy = card.querySelector('.tutors__bio-copy');
+                  }
 
+                  setTimeout(() => {
+                    appendCopy.classList.toggle('tutors__bio-copy__active');
+                  }, 10);
                 }
               });
             }
           });
         } else {
-          bios.forEach(bio => bio.classList.add('animate__animated'));
           bios.forEach((bio, j) => {
+            bio.classList.add('animate__animated');
             bio.style.display = 'none';
             bio.classList.remove('animate__fadeInUp', 'animate__fadeOutDown');
 
@@ -1842,18 +1830,20 @@ const tutors = function tutors() {
         }
       };
 
-      const showHideButtons = () => {
+      const toggleButtonsVisibility = () => {
         buttons.forEach(button => {
-          if (!clicked) {
-            if (button !== btn) {
-              button.classList.remove('animate__animated', 'animate__fadeIn');
-              button.classList.add('button-hide');
-              button.disabled = true;
+          if (!isMobile()) {
+            if (!clicked) {
+              if (button !== btn) {
+                button.classList.remove('animate__animated', 'animate__fadeIn');
+                button.classList.add('button-hide');
+                button.disabled = true;
+              }
+            } else {
+              button.style.display = 'initial';
+              button.classList.remove('button-hide');
+              button.disabled = false;
             }
-          } else {
-            button.style.display = 'initial';
-            button.classList.remove('button-hide');
-            button.disabled = false;
           }
         });
       };
@@ -1861,27 +1851,18 @@ const tutors = function tutors() {
       const animateForward = () => {
         tutorsCard.forEach((card, j) => {
           if (j !== i) {
-            if (isMobile()) {
-              tutorsInner[j].style.animation = 'getSmallerMobile 1s ease-in-out forwards';
-            } else {
-              tutorsInner[j].style.animation = 'getSmaller 1s ease-in-out forwards';
-            }
+            tutorsInner[j].style.animation = 'getSmaller 1s ease-in-out forwards';
           } else {
             card.setAttribute('data-clicked', 'true');
+            calculateDistance();
 
-            if (isMobile()) {
-              card.style.animation = 'cardUp 1s ease-in-out forwards';
-            } else {
-              calculateDistance();
-
-              if (!card.getAttribute('data-center')) {
-                // we need to apply 2 diffirent animations to the same object
-                // that's why we use a wrapper teacherItem
-                // we apply 1 animation to the card and the second to the wrapper.
-                card.style.animation = 'toCenterForward 1s ease-in-out forwards';
-                card.style.zIndex = 11;
-                tutorsCard[middleElement].style.animation = 'toSideForward 1s ease-in-out forwards';
-              }
+            if (!card.getAttribute('data-center')) {
+              // we need to apply 2 diffirent animations to the same object
+              // that's why we use a wrapper teacherItem
+              // we apply 1 animation to the card and the second to the wrapper.
+              card.style.animation = 'toCenterForward 1s ease-in-out forwards';
+              card.style.zIndex = 11;
+              tutorsCard[middleElement].style.animation = 'toSideForward 1s ease-in-out forwards';
             }
           }
         });
@@ -1890,11 +1871,7 @@ const tutors = function tutors() {
       const animateBackwards = () => {
         tutorsInner.forEach(inner => {
           if (!inner.closest('[data-clicked]')) {
-            if (isMobile()) {
-              inner.style.animation = 'getBiggerMobile 1s ease-in-out forwards';
-            } else {
-              inner.style.animation = 'getBigger 1s ease-in-out forwards';
-            }
+            inner.style.animation = 'getBigger 1s ease-in-out forwards';
           }
         });
         tutorsCard.forEach((card, j) => {
@@ -1910,16 +1887,28 @@ const tutors = function tutors() {
       }; // initiating sequence
 
 
-      showHideBio();
-      showHideButtons();
+      toggleBio();
+      toggleButtonsVisibility();
+
+      if (btn.getAttribute('data-btn-clicked') === 'true') {
+        animateButtons(0, 0, 1, 0);
+        btn.setAttribute('data-btn-clicked', 'false');
+      } else {
+        animateButtons(-30, -24, 0, 1);
+        btn.setAttribute('data-btn-clicked', 'true');
+      }
 
       if (!clicked) {
-        animateButtons(-30, -24, 0, 1);
-        animateForward();
+        if (!isMobile()) {
+          animateForward();
+        }
+
         clicked = true;
       } else {
-        animateButtons(0, 0, 1, 0);
-        animateBackwards();
+        if (!isMobile()) {
+          animateBackwards();
+        }
+
         clicked = false;
       }
     };
