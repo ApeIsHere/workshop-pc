@@ -7,9 +7,17 @@ const hamburger = function () {
 
     const toggleMenu = () => {
         isOpen = !isOpen;
+
         menu.classList.toggle('menu__active');
         animateHamburger(isOpen);
     };
+
+    const closeMenu = () => {
+        isOpen = !isOpen;
+
+        menu.classList.remove('menu__active');
+        animateHamburger(isOpen);
+    }
 
     const animateHamburger = (isOpen) => {
         const angle = isOpen ? 45 : 0,
@@ -20,6 +28,13 @@ const hamburger = function () {
         lines[1].style.top = -top;
         lines[2].style.opacity = isOpen ? '0' : '1';
     };
+    
+    window.addEventListener('click', (e) => {
+        console.log(isOpen + '3');
+        if (isOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+            closeMenu();
+        }
+    });
 
     hamburger.addEventListener('click', toggleMenu);
 };

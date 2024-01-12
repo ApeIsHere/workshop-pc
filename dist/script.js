@@ -1541,6 +1541,12 @@ const hamburger = function hamburger() {
     animateHamburger(isOpen);
   };
 
+  const closeMenu = () => {
+    isOpen = !isOpen;
+    menu.classList.remove('menu__active');
+    animateHamburger(isOpen);
+  };
+
   const animateHamburger = isOpen => {
     const angle = isOpen ? 45 : 0,
           top = isOpen ? '3.5px' : 'auto';
@@ -1551,6 +1557,13 @@ const hamburger = function hamburger() {
     lines[2].style.opacity = isOpen ? '0' : '1';
   };
 
+  window.addEventListener('click', e => {
+    console.log(isOpen + '3');
+
+    if (isOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+      closeMenu();
+    }
+  });
   hamburger.addEventListener('click', toggleMenu);
 };
 
@@ -1748,8 +1761,6 @@ const tutors = function tutors() {
         });
       };
 
-      getCurrentPosition();
-
       const isMobile = () => {
         return window.innerWidth <= 768;
       };
@@ -1788,7 +1799,26 @@ const tutors = function tutors() {
       };
 
       const toggleBio = () => {
-        // clone and append the copy of bio for mobile
+        bios.forEach((bio, j) => {
+          bio.classList.add('animate__animated');
+          bio.style.display = 'none';
+          bio.classList.remove('animate__fadeInUp', 'animate__fadeOutDown');
+
+          if (!clicked && j === i) {
+            bio.style.display = 'block';
+            bio.classList.add('animate__fadeInUp');
+          } else if (clicked && j === i) {
+            bio.style.display = 'block';
+            bio.classList.add('animate__fadeOutDown');
+            setTimeout(() => {
+              bio.style.display = 'none';
+            }, 800);
+          }
+        });
+      }; // clone and append the copy of bio for mobile
+
+
+      const toggleBioMobile = () => {
         if (isMobile()) {
           bios.forEach((bio, j) => {
             if (j === i) {
@@ -1810,40 +1840,21 @@ const tutors = function tutors() {
               });
             }
           });
-        } else {
-          bios.forEach((bio, j) => {
-            bio.classList.add('animate__animated');
-            bio.style.display = 'none';
-            bio.classList.remove('animate__fadeInUp', 'animate__fadeOutDown');
-
-            if (!clicked && j === i) {
-              bio.style.display = 'block';
-              bio.classList.add('animate__fadeInUp');
-            } else if (clicked && j === i) {
-              bio.style.display = 'block';
-              bio.classList.add('animate__fadeOutDown');
-              setTimeout(() => {
-                bio.style.display = 'none';
-              }, 800);
-            }
-          });
         }
       };
 
       const toggleButtonsVisibility = () => {
         buttons.forEach(button => {
-          if (!isMobile()) {
-            if (!clicked) {
-              if (button !== btn) {
-                button.classList.remove('animate__animated', 'animate__fadeIn');
-                button.classList.add('button-hide');
-                button.disabled = true;
-              }
-            } else {
-              button.style.display = 'initial';
-              button.classList.remove('button-hide');
-              button.disabled = false;
+          if (!clicked) {
+            if (button !== btn) {
+              button.classList.remove('animate__animated', 'animate__fadeIn');
+              button.classList.add('button-hide');
+              button.disabled = true;
             }
+
+            button.style.display = 'initial';
+            button.classList.remove('button-hide');
+            button.disabled = false;
           }
         });
       };
@@ -1887,8 +1898,27 @@ const tutors = function tutors() {
       }; // initiating sequence
 
 
-      toggleBio();
-      toggleButtonsVisibility();
+      if (isMobile()) {
+        toggleBioMobile();
+
+        if (!clicked) {
+          clicked = true;
+        } else {
+          clicked = false;
+        }
+      } else {
+        getCurrentPosition();
+        toggleBio();
+        toggleButtonsVisibility();
+
+        if (!clicked) {
+          animateForward();
+          clicked = true;
+        } else {
+          animateBackwards();
+          clicked = false;
+        }
+      }
 
       if (btn.getAttribute('data-btn-clicked') === 'true') {
         animateButtons(0, 0, 1, 0);
@@ -1896,20 +1926,6 @@ const tutors = function tutors() {
       } else {
         animateButtons(-30, -24, 0, 1);
         btn.setAttribute('data-btn-clicked', 'true');
-      }
-
-      if (!clicked) {
-        if (!isMobile()) {
-          animateForward();
-        }
-
-        clicked = true;
-      } else {
-        if (!isMobile()) {
-          animateBackwards();
-        }
-
-        clicked = false;
       }
     };
 
