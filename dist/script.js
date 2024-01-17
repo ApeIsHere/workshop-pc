@@ -1375,7 +1375,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'; //----------------------------------- Timer
-  // Use the format "2023-09-04T15:30:00"
+  // Use format "2023-09-04T15:30:00"
 
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_0__["default"])('.main__countdown', '2024-11-02T00:00:00');
   Object(_modules_hamburger__WEBPACK_IMPORTED_MODULE_1__["default"])();
@@ -1558,8 +1558,6 @@ const hamburger = function hamburger() {
   };
 
   window.addEventListener('click', e => {
-    console.log(isOpen + '3');
-
     if (isOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
       closeMenu();
     }

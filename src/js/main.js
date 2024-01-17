@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     //----------------------------------- Timer
-    // Use the format "2023-09-04T15:30:00"
+    // Use format "2023-09-04T15:30:00"
 
     timer('.main__countdown', '2024-11-02T00:00:00');
 
