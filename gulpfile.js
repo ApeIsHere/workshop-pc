@@ -8,6 +8,7 @@ const cleanCSS      = require('gulp-clean-css');
 const autoprefixer  = require('gulp-autoprefixer');
 const rename        = require("gulp-rename");
 const imagemin      = require('gulp-imagemin');
+const pngquant      = require('imagemin-pngquant');
 const htmlmin       = require('gulp-htmlmin');
 
 const dist = "./dist/";
@@ -68,6 +69,22 @@ gulp.task("copy-assets", () => {
                 .on("end", browsersync.reload);
 });
 
+gulp.task("copy-images", function () {
+  return gulp.src("src/assets/img/**/*")
+      .pipe(imagemin())
+      .pipe(gulp.dest(dist + "/assets/img"))
+      .pipe(browsersync.stream());
+});
+
+gulp.task("copy-icons", function () {
+  return gulp.src("src/assets/icons/**/*")
+      .pipe(imagemin([
+        pngquant({quality: [0.5, 0.5]})
+      ]))
+      .pipe(gulp.dest(dist + "/assets/icons"))
+      .pipe(browsersync.stream());
+});
+
 gulp.task("watch", () => {
     browsersync.init({
 		server: "./dist/",
@@ -81,7 +98,7 @@ gulp.task("watch", () => {
     gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
 });
 
-gulp.task("build", gulp.parallel("copy-html",  "copy-styles", "copy-assets", "build-js"));
+gulp.task("build", gulp.parallel("copy-html",  "copy-styles", "copy-assets", "copy-images", "copy-icons", "build-js"));
 
 gulp.task("build-prod-js", () => {
     return gulp.src("./src/js/main.js")
