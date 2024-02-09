@@ -27,7 +27,7 @@ const tutors = function () {
                 document.documentElement.style.setProperty('--distance', distance);
                 document.documentElement.style.setProperty('--distanceNeg', distanceNeg);
                 document.documentElement.style.setProperty('--center', center);
-                document.documentElement.style.setProperty('--sside', side);
+                document.documentElement.style.setProperty('--side', side);
 
                 console.log("--distance:", distance);
                 console.log("--distanceNeg:", distanceNeg);

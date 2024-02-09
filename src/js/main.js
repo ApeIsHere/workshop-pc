@@ -4,6 +4,9 @@ import tutors from "./modules/tutors";
 import scroll from "./modules/scroll";
 import forms from "./modules/forms";
 import modals from "./modules/modals";
+import checkTextInputs from "./modules/checkTextInputs";
+import checkNumInputs from "./modules/checkNumInputs";
+import checkEmailInputs from "./modules/checkEmailInputs";
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -18,6 +21,8 @@ window.addEventListener('DOMContentLoaded', () => {
     tutors();
     forms();
     modals();
+    checkTextInputs('[name="name"]');
+    checkNumInputs('[name="phone"]');
 });
 
 
