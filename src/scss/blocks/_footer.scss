@@ -1,0 +1,43 @@
+.footer {
+    margin-top: 200px;
+    text-align: center;
+    .text {
+        margin-top: 30px;
+    }
+    &__form {
+        position: relative;
+        width: 492px;
+        margin: 60px auto;
+        form {
+            display: flex;
+        }
+        &-mail {
+            border-radius: 50px 0px 0px 50px;
+        }
+        .button {
+            position: absolute;
+            left: 332px;
+        }
+    }
+    &__socials {
+        margin: 40px auto 106px auto;
+        margin-top: 40px;
+        width: 290px;
+        display: flex;
+        justify-content: space-between;
+        &-item {
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background: var(--main-color1);
+                border-radius: 50px;
+                z-index: -1;
+                top: -50%;
+                left: -50%;
+            }
+        }
+    }
+}

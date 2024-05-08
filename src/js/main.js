@@ -1,28 +1,23 @@
+import "../scss/style.scss";
+
 import timer from "./modules/timer";
 import hamburger from "./modules/hamburger";
 import tutors from "./modules/tutors";
 import scroll from "./modules/scroll";
 import forms from "./modules/forms";
 import modals from "./modules/modals";
-import checkTextInputs from "./modules/checkTextInputs";
-import checkNumInputs from "./modules/checkNumInputs";
-import checkEmailInputs from "./modules/checkEmailInputs";
 
-window.addEventListener('DOMContentLoaded', () => {
-    'use strict';
+window.addEventListener("DOMContentLoaded", () => {
+  "use strict";
 
-    //----------------------------------- Timer
-    // Use format "2023-09-04T15:30:00"
+  //----------------------------------- Timer
+  // Use the format "2023-09-04T15:30:00"
 
-    timer('.main__countdown', '2024-11-02T00:00:00');
+  timer(".main__countdown", "2024-11-02T00:00:00");
 
-    hamburger();
-    scroll();
-    tutors();
-    forms();
-    modals();
-    checkTextInputs('[name="name"]');
-    checkNumInputs('[name="phone"]');
+  hamburger();
+  scroll();
+  tutors();
+  forms();
+  modals();
 });
-
-

@@ -30,6 +30,7 @@ const hamburger = function () {
     };
     
     window.addEventListener('click', (e) => {
+        console.log(isOpen + '3');
         if (isOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
             closeMenu();
         }

@@ -79,7 +79,6 @@ const forms = () => {
                 mainInput.value = message.loading;
             } else {
                 modalMessage.textContent = message.loading;
-                modalMessage.style.display = 'block';
             }
 
             postData(server, formData)

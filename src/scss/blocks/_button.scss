@@ -1,0 +1,79 @@
+.button {
+    width: 169px;
+    height: 44px;
+    background: var(--main-color2);
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #ffffff;
+    border: none;
+    &:hover {
+        filter: brightness(1.15);
+    }
+    &-login {
+        position: absolute;
+        top: 38px;
+        right: 80px;
+        width: 183px;
+        background: var(--main-color1);
+    }
+    &-bio {
+        width: 143px;
+        border: 1px solid #FFFFFF;
+        background: none;
+        font-weight: 400;
+        overflow: hidden;
+    }
+    &-slide {
+        transition: all .6s ease-in-out;
+        position: relative;
+        top: 8px;
+		opacity: 1;			
+	}
+    &-hide {
+        transition: all 1s ease-in-out;
+        opacity: 0;
+        cursor: default !important;
+    }
+    .back {
+        transform: translateY(30px);
+		opacity: 0;
+    }
+}
+.toTop {
+    display: inline-block;
+    background: var(--main-color1);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: all .5s, 
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    &::after {
+        content: "\25B2";
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2em;
+        line-height: 50px;
+        color: #fff;
+      }
+    &:hover {
+        cursor: pointer;
+        filter:contrast(1.5);
+        text-decoration: none;
+
+      }
+    &:active {
+        filter:contrast(2.5);
+    }
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
